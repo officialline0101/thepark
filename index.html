@@ -1285,6 +1285,14 @@
                     const slotStart = new Date(day);
                     slotStart.setHours(parseInt(times[j].split(':')[0]), parseInt(times[j].split(':')[1]), 0, 0);
 
+// ✅【追加】当日（今日）なら✕にする
+const isSameDate = slotStart.toDateString() === now.toDateString();
+if (isSameDate) {
+    cell.textContent = '✕';
+    cell.classList.add('unavailable');
+    continue;
+}
+
                     const slotEnd = new Date(slotStart);
                     let menuDuration = selectedMenuTime || 10;
                     let visitDuration = selectedVisitTime || 0;
