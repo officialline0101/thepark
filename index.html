@@ -704,6 +704,34 @@
             padding: 50px 10px;
             margin-top: 30px;
         }
+
+        .info-textdenwa {
+            margin-top: 20px;
+            /* 上の余白 */
+            margin-bottom: 10px;
+            /* 下に白い隙間を追加 */
+            font-size: 15px;
+            color: #000000;
+            line-height: 1.5;
+            text-align: center;
+            word-wrap: break-word;
+            background-color: #eef9f5;
+            /* 青っぽい背景色を追加 */
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        /* 携帯端末向けのレスポンシブデザイン */
+        @media (max-width: 768px) {
+            .info-textdenwa {
+                font-size: 15px;
+                /* スマホでは少し小さく */
+                margin-top: 10px;
+                /* 上下のマージンを調整 */
+                line-height: 2.0;
+                /* テキストの高さ調整 */
+            }
+        }
     </style>
 </head>
 
@@ -735,6 +763,7 @@
         </div>
 
         <div class="label">希望日時<span class="required">必須</span></div>
+        <div class="info-textdenwa">当日の場合は電話して下さい</div>
         <div class="calendar-container">
             <!-- 月を独立して配置 -->
             <div class="current-month-container">
