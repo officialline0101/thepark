@@ -732,6 +732,60 @@
                 /* テキストの高さ調整 */
             }
         }
+
+/* 基本スタイル */
+.info-textmemo {
+    margin: 20px 0;
+    font-family: "Noto Sans JP", "Roboto", sans-serif;
+    font-size: 14px;
+    color: #333; /* 読みやすい濃い文字色 */
+    background-color: #f8f9fa;
+    line-height: 1.8;
+    text-align: left;
+    word-wrap: break-word;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    max-width: 800px; /* 横幅制限 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 軽い影を追加 */
+    overflow-y: auto; /* 長文スクロール対応 */
+}
+
+/* 見出しスタイル */
+.info-textmemo h1 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.info-textmemo h2 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 8px;
+}
+
+/* 強調テキスト */
+.info-textmemo strong {
+    color: #007bff;
+}
+
+/* モバイル向け調整 */
+@media (max-width: 768px) {
+    .info-textmemo {
+        font-size: 13px;
+        padding: 15px;
+        max-width: 100%;
+    }
+
+    .info-textmemo h1 {
+        font-size: 16px;
+    }
+
+    .info-textmemo h2 {
+        font-size: 14px;
+    }
+}
     </style>
 </head>
 
@@ -747,6 +801,9 @@
     <div class="container">
         <h1>THE PARK<br>予約フォーム
         </h1>
+        <div class="info-textmemo">【マシン体験ご希望の方へ】<br>
+マシン体験は無料での施設利用ではなく、入会前の体験・説明を含むご案内となります。<br>
+所要時間は説明・体験・ご入会手続きまで含めて1時間以内を目安にさせていただきます。</div>
         <div class="label">お客様名<span class="required">必須</span></div>
         <input type="text" id="name" placeholder="お名前を入力してください" oninput="saveInput('name')">
 
@@ -856,9 +913,9 @@
         let selectedirradiationsTime = 0; // 訪問回数で選択された時間
 
         let menuTimes = {
-            '見学のみ': 40,
-            'マシン体験(お一人様1回のみ)': 40,
-            'マシーン体験': 40
+            '見学のみ': 30,
+            'マシン体験(お一人様1回のみ)': 30,
+            'マシーン体験': 30
         };
 
         let selectedMenuTime = 0;
@@ -998,12 +1055,15 @@
 
             // 選択されたオプションを取得
             const updatedSelectedButtons = document.querySelectorAll('.symptoms button.active');
+            const treatmentText = document.getElementById('treatment-text');
 
             if (updatedSelectedButtons.length === 0) {
                 // すべてのボタンの選択が解除された場合、メニュー時間を0にリセット
                 selectedMenuTime = 0;
                 selectedSymptom = null; // 選択されたメニューをリセット
                 menuPrice = 0; // メニュー価格をリセット
+                treatmentText.style.display = 'none';
+                return; // ここで処理を終了
             } else {
                 // 1つだけ選択状態にする
                 if (updatedSelectedButtons.length > 1) {
@@ -1024,9 +1084,9 @@
             fetchAvailability(currentDate);
 
             if (treatmentId === 'treatment1') {
-                treatmentText.innerHTML = `<div style="text-align: left;"><strong>施術時間：10分</strong></div>`;
+                treatmentText.innerHTML = `<div style="text-align: left;"><strong>複数名でご来店の場合は備考欄にご記入ください。</strong></div>`;
             } else if (treatmentId === 'treatment2') {
-                treatmentText.innerHTML = `<div style="text-align: left;"><strong>施術時間：15分</strong</div>`;
+                treatmentText.innerHTML = ``;
             } else if (treatmentId === 'treatment3') {
                 treatmentText.innerHTML = `<div style="text-align: left;"><strong>施術時間：15分</strong></div>`;
             } else if (treatmentId === 'treatment4') {
@@ -1242,18 +1302,17 @@
             const calendar = document.getElementById('calendar1');
             const table = calendar.querySelector('table tbody');
 
-            const times = [
-                '10:30',
-                '11:00', '11:30',
-                '12:00', '12:30',
-                '13:00', '13:30',
-                '14:00', '14:30',
-                '15:00', '15:30',
-                '16:00', '16:30',
-                '17:00', '17:30',
-                '18:00', '18:30',
-                '19:00'
-            ];
+const times = [
+    '10:30', '10:45', '11:00', '11:15',
+    '11:30', '11:45', '12:00', '12:15',
+    '12:30', '12:45', '13:00', '13:15',
+    '13:30', '13:45', '14:00', '14:15',
+    '14:30', '14:45', '15:00', '15:15',
+    '15:30', '15:45', '16:00', '16:15',
+    '16:30', '16:45', '17:00', '17:15',
+    '17:30', '17:45', '18:00', '18:15',
+    '18:30', '18:45', '19:00'
+];
 
             if (table.rows.length === 0) {
                 for (const time of times) {
